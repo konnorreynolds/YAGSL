@@ -11,7 +11,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DriverStation;
 import swervelib.encoders.AnalogAbsoluteEncoderSwerve;
 import swervelib.encoders.CANCoderSwerve;
-import swervelib.encoders.CanAndMagSwerve;
+//import swervelib.encoders.CanAndMagSwerve;
 import swervelib.encoders.DIODutyCycleEncoderSwerve;
 import swervelib.encoders.SparkFlexEncoderSwerve;
 import swervelib.encoders.SparkMaxAnalogEncoderSwerve;
@@ -22,7 +22,7 @@ import swervelib.imu.ADIS16448Swerve;
 import swervelib.imu.ADIS16470Swerve;
 import swervelib.imu.ADXRS450Swerve;
 import swervelib.imu.AnalogGyroSwerve;
-import swervelib.imu.CanandgyroSwerve;
+//import swervelib.imu.CanandgyroSwerve;
 import swervelib.imu.NavXSwerve;
 import swervelib.imu.Pigeon2Swerve;
 import swervelib.imu.PigeonSwerve;
@@ -90,8 +90,8 @@ public class DeviceJson
       case "sparkflex_canandcoder":
         return new SparkFlexEncoderSwerve(motor, 360);
       case "canandcoder_can":
-      case "canandmag_can":
-        return new CanAndMagSwerve(id);
+//      case "canandmag_can":
+//        return new CanAndMagSwerve(id);
       case "ctre_mag":
       case "rev_hex":
       case "throughbore":
@@ -152,8 +152,8 @@ public class DeviceJson
         return new ADXRS450Swerve();
       case "analog":
         return new AnalogGyroSwerve(id);
-      case "canandgyro":
-        return new CanandgyroSwerve(id);
+//      case "canandgyro":
+//        return new CanandgyroSwerve(id);
       case "navx":
       case "navx_spi":
         return new NavXSwerve(NavXComType.kMXP_SPI);

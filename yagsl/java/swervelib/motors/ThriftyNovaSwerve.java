@@ -4,17 +4,17 @@
 
 package swervelib.motors;
 
+import com.thethriftybot.devices.ThriftyNova;
+import com.thethriftybot.devices.ThriftyNova.CurrentType;
+import com.thethriftybot.devices.ThriftyNova.EncoderType;
+import com.thethriftybot.devices.ThriftyNova.PIDSlot;
+import com.thethriftybot.util.Conversion;
+import com.thethriftybot.util.Conversion.PositionUnit;
+import com.thethriftybot.util.Conversion.VelocityUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import com.thethriftybot.Conversion;
-import com.thethriftybot.Conversion.PositionUnit;
-import com.thethriftybot.Conversion.VelocityUnit;
-import com.thethriftybot.ThriftyNova;
-import com.thethriftybot.ThriftyNova.CurrentType;
-import com.thethriftybot.ThriftyNova.EncoderType;
-import com.thethriftybot.ThriftyNova.PIDSlot;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
@@ -39,23 +39,23 @@ public class ThriftyNovaSwerve extends SwerveMotor
   /**
    * Closed-loop PID controller.
    */
-  public        PIDController pid;
+  public  PIDController pid;
   /**
    * ThriftyNova Instance.
    */
-  private       ThriftyNova   motor;
+  private ThriftyNova   motor;
   /**
    * Factory default already occurred.
    */
-  private       boolean       factoryDefaultOccurred   = false;
+  private boolean    factoryDefaultOccurred   = false;
   /**
    * Position conversion object for the motor encoder
    */
-  private       Conversion    positionConversion;
+  private Conversion positionConversion;
   /**
    * Velocity conversion object for the motor encoder
    */
-  private       Conversion    velocityConversion;
+  private Conversion velocityConversion;
   /**
    * The position conversion factor for the encoder
    */
