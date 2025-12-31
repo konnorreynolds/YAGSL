@@ -36,6 +36,7 @@ import swervelib.motors.SwerveMotor;
 import swervelib.motors.TalonFXSSwerve;
 import swervelib.motors.TalonFXSwerve;
 import swervelib.motors.TalonSRXSwerve;
+import swervelib.motors.ThriftyNovaSwerve;
 import swervelib.parser.deserializer.ReflectionsManager;
 import swervelib.parser.deserializer.ReflectionsManager.VENDOR;
 
@@ -205,7 +206,9 @@ public class DeviceJson
       case "talonfxs_vortex":
         return new TalonFXSSwerve(id, canbus != null ? canbus : "", isDriveMotor, DCMotor.getNeoVortex(1));
       case "talonfxs_minion":
-        throw new UnsupportedOperationException("Cannot create minion combination yet"); //new TalonFXSSwerve(id, canbus != null ? canbus : "", isDriveMotor, DCMotor.getNeoVortex(1));
+        return new TalonFXSSwerve(id, canbus != null ? canbus : "", isDriveMotor, DCMotor.getMinion(1));
+      case "talonfxs_pulsar":
+        throw new UnsupportedOperationException("Cannot create pulsar combination");
       case "sparkmax_neo":
       case "neo":
       case "sparkmax":
@@ -213,12 +216,13 @@ public class DeviceJson
       case "sparkmax_vortex":
         return new SparkMaxSwerve(id, isDriveMotor, DCMotor.getNeoVortex(1));
       case "sparkmax_minion":
-        throw new UnsupportedOperationException("Cannot create minion combination yet");
+        return new SparkMaxSwerve(id, isDriveMotor, DCMotor.getMinion(1));
       case "sparkmax_neo550":
       case "neo550":
         return new SparkMaxSwerve(id, isDriveMotor, DCMotor.getNeo550(1));
+      case "sparkmax_pulsar":
+        throw new UnsupportedOperationException("Cannot create pulsar combination");
       case "sparkflex_vortex":
-      case "vortex":
       case "sparkflex":
         return new SparkFlexSwerve(id, isDriveMotor, DCMotor.getNeoVortex(1));
       case "sparkflex_neo":
@@ -226,12 +230,16 @@ public class DeviceJson
       case "sparkflex_neo550":
         return new SparkFlexSwerve(id, isDriveMotor, DCMotor.getNeo550(1));
       case "sparkflex_minion":
-        throw new UnsupportedOperationException("Cannot create minion combination yet");
+        return new SparkFlexSwerve(id, isDriveMotor, DCMotor.getMinion(1));
+      case "sparkflex_pulsar":
+        throw new UnsupportedOperationException("Cannot create pulsar combination");
       case "falcon500":
       case "falcon":
         return new TalonFXSwerve(id, canbus != null ? canbus : "", isDriveMotor, DCMotor.getFalcon500(1));
       case "falcon500foc":
         return new TalonFXSwerve(id, canbus != null ? canbus : "", isDriveMotor, DCMotor.getFalcon500Foc(1));
+      case "krakenx44":
+        return new TalonFXSwerve(id, canbus != null ? canbus : "", isDriveMotor, DCMotor.getKrakenX44(1));
       case "krakenx60":
       case "talonfx":
         return new TalonFXSwerve(id, canbus != null ? canbus : "", isDriveMotor, DCMotor.getKrakenX60(1));
@@ -288,7 +296,9 @@ public class DeviceJson
                                                       new Object[]{id, isDriveMotor, DCMotor.getNeoVortex(1)});
 
       case "nova_minion":
-        throw new UnsupportedOperationException("Cannot create minion combination");//return new ThriftyNovaSwerve(id, isDriveMotor, DCMotor.getMinion(1));
+        return new ThriftyNovaSwerve(id, isDriveMotor, DCMotor.getMinion(1));
+      case "nova_pulsar":
+        throw new UnsupportedOperationException("Cannot create pulsar combination");
       default:
         throw new RuntimeException(type + " is not a recognized motor type.");
     }

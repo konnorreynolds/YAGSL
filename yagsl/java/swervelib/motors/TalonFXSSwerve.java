@@ -9,8 +9,10 @@ import com.ctre.phoenix6.configs.TalonFXSConfigurator;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFXS;
+import com.ctre.phoenix6.signals.AdvancedHallSupportValue;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.MotorArrangementValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.system.plant.DCMotor;
 import swervelib.encoders.SwerveAbsoluteEncoder;
@@ -124,9 +126,32 @@ public class TalonFXSSwerve extends SwerveMotor
       //      motor.setSensorPhase(true);
       //      motor.configSelectedFeedbackSensor(TalonFXSFeedbackDevice.IntegratedSensor, 0, 30);
       //      motor.configNeutralDeadband(0.001);
+      if(isMotor(simMotor, DCMotor.getMinion(1)))
+      {
+        configuration.Commutation.withAdvancedHallSupport(AdvancedHallSupportValue.Enabled);
+        configuration.Commutation.withMotorArrangement(MotorArrangementValue.Minion_JST);
+      }
     }
   }
 
+
+  /**
+   * Compare {@link DCMotor}s to identify the given motor.
+   *
+   * @param a {@link DCMotor} a
+   * @param b {@link DCMotor} b
+   * @return True if same DC motor.
+   */
+  private boolean isMotor(DCMotor a, DCMotor b)
+  {
+    return a.stallTorqueNewtonMeters == b.stallTorqueNewtonMeters &&
+           a.stallCurrentAmps == b.stallCurrentAmps &&
+           a.freeCurrentAmps == b.freeCurrentAmps &&
+           a.freeSpeedRadPerSec == b.freeSpeedRadPerSec &&
+           a.KtNMPerAmp == b.KtNMPerAmp &&
+           a.KvRadPerSecPerVolt == b.KvRadPerSecPerVolt &&
+           a.nominalVoltageVolts == b.nominalVoltageVolts;
+  }
   /**
    * Clear the sticky faults on the motor controller.
    */
