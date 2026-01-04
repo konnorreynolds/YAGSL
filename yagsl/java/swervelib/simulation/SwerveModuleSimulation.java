@@ -6,8 +6,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import swervelib.simulation.ironmaple.simulation.drivesims.SelfControlledSwerveDriveSimulation;
-import swervelib.SwerveDrive;
-import swervelib.parser.SwerveModulePhysicalCharacteristics;
 
 /**
  * Class that wraps around {@link swervelib.simulation.ironmaple.simulation.drivesims.SwerveModuleSimulation}

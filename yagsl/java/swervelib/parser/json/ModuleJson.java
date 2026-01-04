@@ -8,8 +8,6 @@ import swervelib.encoders.ThriftyNovaEncoderSwerve;
 import swervelib.motors.SwerveMotor;
 import swervelib.motors.ThriftyNovaSwerve;
 import swervelib.parser.PIDFConfig;
-import swervelib.parser.SwerveModuleConfiguration;
-import swervelib.parser.SwerveModulePhysicalCharacteristics;
 import swervelib.parser.json.modules.BoolMotorJson;
 import swervelib.parser.json.modules.ConversionFactorsJson;
 import swervelib.parser.json.modules.LocationJson;
