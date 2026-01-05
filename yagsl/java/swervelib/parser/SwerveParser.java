@@ -151,7 +151,7 @@ public class SwerveParser
           .withControlMode(ControlMode.CLOSED_LOOP)
           .withGearing(azimuthGearing.gearRatio)
           .withClosedLoopController(pidfPropertiesJson.angle.p, pidfPropertiesJson.angle.i, pidfPropertiesJson.angle.d)
-          .withIdleMode(MotorMode.COAST)
+          .withIdleMode(MotorMode.BRAKE)
           .withStatorCurrentLimit(Amps.of(physicalPropertiesJson.statorCurrentLimit.angle))
           .withTelemetry("azimuth_" + swerveDriveJson.modules[i], TelemetryVerbosity.LOW);
       var azimuthMotorVendor           = moduleJson.angle.getVendor(VENDOR.UNKNOWN);
