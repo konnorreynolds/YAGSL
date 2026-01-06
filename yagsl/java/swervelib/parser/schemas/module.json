@@ -225,10 +225,6 @@
         "left",
         "front"
       ]
-    },
-    "useCosineCompensator": {
-      "type": "boolean",
-      "description": "Cosine compensation, ideally this should be the same on all modules. Default is true"
     }
   },
   "required": [
