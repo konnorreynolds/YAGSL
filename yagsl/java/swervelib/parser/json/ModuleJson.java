@@ -1,15 +1,8 @@
 package swervelib.parser.json;
 
-import static edu.wpi.first.units.Units.Inches;
-
-import com.revrobotics.spark.SparkMax;
-import edu.wpi.first.math.util.Units;
-import swervelib.parser.PIDFConfig;
 import swervelib.parser.json.modules.BoolMotorJson;
-import swervelib.parser.json.modules.ConversionFactorsJson;
+import swervelib.parser.json.modules.GearingJson;
 import swervelib.parser.json.modules.LocationJson;
-import yams.mechanisms.config.SwerveModuleConfig;
-import yams.mechanisms.swerve.SwerveModule;
 
 /**
  * {@link yams.mechanisms.swerve.SwerveModule} JSON parsed class. Used to access the JSON data.
@@ -24,19 +17,19 @@ public class ModuleJson
   /**
    * Angle motor device configuration.
    */
-  public DeviceJson            angle;
+  public DeviceJson  angle;
   /**
    * Conversion Factors composition. Auto-calculates the conversion factors.
    */
-  public ConversionFactorsJson conversionFactors       = new ConversionFactorsJson();
+  public GearingJson   gearing = new GearingJson();
   /**
    * Absolute encoder device configuration.
    */
-  public DeviceJson            encoder;
+  public DeviceJson    absoluteEncoder;
   /**
    * Defines which motors are inverted.
    */
-  public BoolMotorJson         inverted;
+  public BoolMotorJson inverted;
   /**
    * Absolute encoder offset from 0 in degrees.
    */

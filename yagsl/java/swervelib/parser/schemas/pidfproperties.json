@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "properties": {
+    "drive": {
+      "type": "object",
+      "description": "Drive motor controller closed loop",
+      "properties": {
+        "p": {
+          "type": "number",
+          "description": "Proportional Gain"
+        },
+        "i": {
+          "type": "number",
+          "description": "Integral Gain"
+        },
+        "d": {
+          "type": "number",
+          "description": "Derivative Gain"
+        }
+      },
+      "required": [
+        "p",
+        "i",
+        "d"
+      ]
+    },
+    "angle": {
+      "type": "object",
+      "description": "Angle/Steering/Azimuth motor controller closed loop",
+      "properties": {
+        "p": {
+          "type": "number",
+          "description": "Proportional Gain"
+        },
+        "i": {
+          "type": "number",
+          "description": "Integral Gain"
+        },
+        "d": {
+          "type": "number",
+          "description": "Derivative Gain"
+        }
+      },
+      "required": [
+        "p",
+        "i",
+        "d"
+      ]
+    }
+  },
+  "required": [
+    "drive",
+    "angle"
+  ]
+}

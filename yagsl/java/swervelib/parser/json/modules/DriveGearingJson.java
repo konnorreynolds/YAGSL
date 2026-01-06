@@ -3,7 +3,7 @@ package swervelib.parser.json.modules;
 /**
  * Drive motor composite JSON parse class.
  */
-public class DriveConversionFactorsJson
+public class DriveGearingJson
 {
 
   /**
@@ -15,7 +15,7 @@ public class DriveConversionFactorsJson
    */
   public double diameter;
 
-  public boolean equals(DriveConversionFactorsJson o)
+  public boolean equals(DriveGearingJson o)
   {
     return o.gearRatio == gearRatio && o.diameter == diameter;
   }

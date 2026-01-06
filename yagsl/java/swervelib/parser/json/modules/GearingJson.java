@@ -3,16 +3,16 @@ package swervelib.parser.json.modules;
 /**
  * Conversion Factors parsed JSON class
  */
-public class ConversionFactorsJson
+public class GearingJson
 {
 
   /**
    * Drive motor conversion factors composition.
    */
-  public DriveConversionFactorsJson drive = new DriveConversionFactorsJson();
+  public DriveGearingJson drive = new DriveGearingJson();
   /**
    * Angle motor conversion factors composition.
    */
-  public AngleConversionFactorsJson angle = new AngleConversionFactorsJson();
+  public AngleGearingJson angle = new AngleGearingJson();
 
 }

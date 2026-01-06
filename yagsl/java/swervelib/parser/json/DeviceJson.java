@@ -20,6 +20,7 @@ import com.thethriftybot.devices.ThriftyNova;
 import com.thethriftybot.devices.ThriftyNova.ExternalEncoder;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import java.util.function.Supplier;
 import swervelib.parser.json.SwerveDriveJson.GyroAxis;
@@ -106,7 +107,11 @@ public class DeviceJson
       }
       case SMARTIO ->
       {
-        return () -> Rotations.of(getSmartIOEncoder().get());
+        Object encoder = getSmartIOEncoder();
+        if (encoder instanceof DutyCycleEncoder)
+        {return () -> Rotations.of(((DutyCycleEncoder) encoder).get());}
+        if (encoder instanceof AnalogEncoder)
+        {return () -> Rotations.of(((AnalogEncoder) encoder).get());}
       }
     }
     throw new IllegalArgumentException("Invalid encoder type: " + type);
@@ -136,13 +141,16 @@ public class DeviceJson
         {
           switch (axis)
           {
-            case YAW -> {
+            case YAW ->
+            {
               return () -> Degrees.of(((Navx) getStudicaGyro()).getYaw());
             }
-            case PITCH -> {
+            case PITCH ->
+            {
               return () -> Degrees.of(((Navx) getStudicaGyro()).getPitch());
             }
-            case ROLL -> {
+            case ROLL ->
+            {
               return () -> Degrees.of(((Navx) getStudicaGyro()).getRoll());
             }
           }
@@ -150,19 +158,23 @@ public class DeviceJson
         {
           switch (axis)
           {
-            case YAW -> {
+            case YAW ->
+            {
               return () -> Degrees.of(((AHRS) getStudicaGyro()).getYaw());
             }
-            case PITCH -> {
+            case PITCH ->
+            {
               return () -> Degrees.of(((AHRS) getStudicaGyro()).getPitch());
             }
-            case ROLL -> {
+            case ROLL ->
+            {
               return () -> Degrees.of(((AHRS) getStudicaGyro()).getRoll());
             }
           }
         }
       }
-      case LIMELIGHT -> {
+      case LIMELIGHT ->
+      {
         throw new UnsupportedOperationException("Limelight gyro are not yet supported.");
       }
     }
@@ -204,7 +216,7 @@ public class DeviceJson
           switch (vendorConnectionType)
           {
             case "attached": return attachedType;
-            case "pwm": return VENDOR.SMARTIO;
+            case "dio": return VENDOR.SMARTIO;
           }
         case "nova":
           return VENDOR.THRIFTYBOT;
@@ -212,7 +224,8 @@ public class DeviceJson
           switch (vendorConnectionType)
           {
             case "attached": return attachedType;
-            case "pwm": return VENDOR.SMARTIO;
+            case "dio":
+            case "analog": return VENDOR.SMARTIO;
             case "can": return VENDOR.ANDYMARK;
           }
         case "canandgyro": return VENDOR.REDUX;
@@ -220,20 +233,20 @@ public class DeviceJson
           switch (vendorConnectionType)
           {
             case "attached": return attachedType;
-            case "pwm": return VENDOR.SMARTIO;
+            case "dio": return VENDOR.SMARTIO;
             case "can": return VENDOR.REDUX;
           }
         case "srxmag":
           switch (vendorConnectionType)
           {
             case "attached": return attachedType;
-            case "pwm": return VENDOR.SMARTIO;
+            case "analog": return VENDOR.SMARTIO;
           }
         case "thrifty":
           switch (vendorConnectionType)
           {
             case "attached": return attachedType;
-            case "pwm": return VENDOR.SMARTIO;
+            case "analog": return VENDOR.SMARTIO;
           }
       }
     }
@@ -346,9 +359,17 @@ public class DeviceJson
    *
    * @return {@link DutyCycleEncoder}
    */
-  public DutyCycleEncoder getSmartIOEncoder()
+  public Object getSmartIOEncoder()
   {
-    return new DutyCycleEncoder(channel);
+    String[] vendorData           = type.split("_");
+    String   vendorType           = vendorData[0];
+    String   vendorConnectionType = vendorData[1];
+    switch (vendorConnectionType)
+    {
+      case "dio": return new DutyCycleEncoder(id);
+      case "analog": return new AnalogEncoder(channel);
+    }
+    throw new IllegalArgumentException("Invalid encoder connection type: " + vendorConnectionType);
   }
 
   /**

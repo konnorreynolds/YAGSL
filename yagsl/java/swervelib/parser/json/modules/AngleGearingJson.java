@@ -4,7 +4,7 @@ package swervelib.parser.json.modules;
 /**
  * Angle motor conversion factors composite JSON parse class.
  */
-public class AngleConversionFactorsJson
+public class AngleGearingJson
 {
 
   /**
@@ -12,7 +12,7 @@ public class AngleConversionFactorsJson
    */
   public double gearRatio;
 
-  public boolean equals(DriveConversionFactorsJson o)
+  public boolean equals(DriveGearingJson o)
   {
     return o.gearRatio == gearRatio;
   }

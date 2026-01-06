@@ -1,23 +1,20 @@
 package swervelib.parser.json;
 
-import static edu.wpi.first.units.Units.Kilogram;
-import static edu.wpi.first.units.Units.Pounds;
-
-import swervelib.parser.json.modules.ConversionFactorsJson;
+import swervelib.parser.json.modules.GearingJson;
 
 /**
- * {@link swervelib.parser.SwerveModulePhysicalCharacteristics} parsed data. Used to configure the SwerveModule.
+ * Used to configure the SwerveModule.
  */
 public class PhysicalPropertiesJson
 {
   /**
    * Conversion Factors composition. Auto-calculates the conversion factors.
    */
-  public ConversionFactorsJson conversionFactors              = new ConversionFactorsJson();
+  public GearingJson    gearing            = new GearingJson();
   /**
    * The current limit in AMPs to apply to the motors.
    */
-  public MotorConfigInt        statorCurrentLimit                   = new MotorConfigInt(40, 20);
+  public MotorConfigInt statorCurrentLimit = new MotorConfigInt(40, 20);
 
 }
 

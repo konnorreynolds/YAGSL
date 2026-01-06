@@ -130,12 +130,12 @@ public class SwerveParser
     for (var i = 0; i < modules.length; i++)
     {
       var moduleJson = moduleJsons[i];
-      var driveGearing = moduleJson.conversionFactors.drive.equals(physicalPropertiesJson.conversionFactors.drive)
-                         ? physicalPropertiesJson.conversionFactors.drive
-                         : moduleJson.conversionFactors.drive;
-      var azimuthGearing = moduleJson.conversionFactors.angle.equals(physicalPropertiesJson.conversionFactors.drive)
-                           ? physicalPropertiesJson.conversionFactors.angle
-                           : moduleJson.conversionFactors.angle;
+      var driveGearing = moduleJson.gearing.drive.equals(physicalPropertiesJson.gearing.drive)
+                         ? physicalPropertiesJson.gearing.drive
+                         : moduleJson.gearing.drive;
+      var azimuthGearing = moduleJson.gearing.angle.equals(physicalPropertiesJson.gearing.drive)
+                           ? physicalPropertiesJson.gearing.angle
+                           : moduleJson.gearing.angle;
       SmartMotorControllerConfig driveMotorConfig = new SmartMotorControllerConfig(subsys)
           .withMotorInverted(moduleJson.inverted.drive)
           .withControlMode(ControlMode.CLOSED_LOOP)
@@ -155,19 +155,19 @@ public class SwerveParser
           .withStatorCurrentLimit(Amps.of(physicalPropertiesJson.statorCurrentLimit.angle))
           .withTelemetry("azimuth_" + swerveDriveJson.modules[i], TelemetryVerbosity.LOW);
       var azimuthMotorVendor           = moduleJson.angle.getVendor(VENDOR.UNKNOWN);
-      var absoluteEncoderVendor        = moduleJson.encoder.getVendor(azimuthMotorVendor);
+      var absoluteEncoderVendor        = moduleJson.absoluteEncoder.getVendor(azimuthMotorVendor);
       var azimuthVendorMotorController = moduleJson.angle.getVendorMotorController();
       if (absoluteEncoderVendor == azimuthMotorVendor)
       {
         Object absoluteEncoder = null;
         switch (absoluteEncoderVendor)
         {
-          case CTRE -> {absoluteEncoder = moduleJson.encoder.getCTREEncoder();}
-          case REV -> {absoluteEncoder = moduleJson.encoder.getREVEncoder(azimuthVendorMotorController);}
-          case THRIFTYBOT -> {absoluteEncoder = moduleJson.encoder.getThriftyEncoder();}
-          case ANDYMARK -> {absoluteEncoder = moduleJson.encoder.getAndyMarkEncoder();}
+          case CTRE -> {absoluteEncoder = moduleJson.absoluteEncoder.getCTREEncoder();}
+          case REV -> {absoluteEncoder = moduleJson.absoluteEncoder.getREVEncoder(azimuthVendorMotorController);}
+          case THRIFTYBOT -> {absoluteEncoder = moduleJson.absoluteEncoder.getThriftyEncoder();}
+          case ANDYMARK -> {absoluteEncoder = moduleJson.absoluteEncoder.getAndyMarkEncoder();}
 //          case REDUX -> {absoluteEncoder = moduleJson.encoder.getReduxEncoder();}
-          case SMARTIO -> {absoluteEncoder = moduleJson.encoder.getSmartIOEncoder();}
+          case SMARTIO -> {absoluteEncoder = moduleJson.absoluteEncoder.getSmartIOEncoder();}
         }
         if (absoluteEncoder != null)
         {
@@ -186,7 +186,7 @@ public class SwerveParser
           .withTelemetry(swerveDriveJson.modules[i], TelemetryVerbosity.HIGH);
       if (absoluteEncoderVendor != azimuthMotorVendor)
       {
-        Supplier<Angle> absoluteEncoderSupplier = moduleJson.encoder.getEncoderSupplier(azimuthVendorMotorController);
+        Supplier<Angle> absoluteEncoderSupplier = moduleJson.absoluteEncoder.getEncoderSupplier(azimuthVendorMotorController);
         moduleConfig.withAbsoluteEncoder(absoluteEncoderSupplier);
       }
       SwerveModule module = new SwerveModule(moduleConfig);
@@ -199,8 +199,8 @@ public class SwerveParser
 //        .withModules(modules)
         .withDiscretizationTime(Millisecond.of(20))
         .withSimDiscretizationTime(Millisecond.of(10))
-        .withGyro(swerveDriveJson.imu.getGyroSupplier(GyroAxis.valueOf(swerveDriveJson.gyroAxis.toUpperCase())))
-        .withGyroInverted(swerveDriveJson.invertedIMU);
+        .withGyro(swerveDriveJson.gyro.getGyroSupplier(GyroAxis.valueOf(swerveDriveJson.gyroAxis.toUpperCase())))
+        .withGyroInverted(swerveDriveJson.gyroInvert);
     return new SwerveDrive(sdc);
   }
 }
