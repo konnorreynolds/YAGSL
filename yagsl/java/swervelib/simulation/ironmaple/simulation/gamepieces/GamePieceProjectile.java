@@ -654,4 +654,5 @@ public class GamePieceProjectile implements GamePiece {
     public boolean isGrounded() {
         return false;
     }
+
 }
