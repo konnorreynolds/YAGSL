@@ -181,7 +181,7 @@ public class GamePieceOnFieldSimulation extends Body implements GamePiece {
     }
 
     @Override
-    public void triggerHitTargeCallBack(){
+    public void triggerHitTargetCallBack(){
         return;
     }
 }
