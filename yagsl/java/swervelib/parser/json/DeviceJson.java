@@ -16,6 +16,7 @@ import swervelib.encoders.SparkFlexEncoderSwerve;
 import swervelib.encoders.SparkMaxAnalogEncoderSwerve;
 import swervelib.encoders.SparkMaxEncoderSwerve;
 import swervelib.encoders.SwerveAbsoluteEncoder;
+import swervelib.encoders.TalonFXSEncoderAnalogSwerve;
 import swervelib.encoders.TalonSRXEncoderSwerve;
 import swervelib.imu.ADIS16448Swerve;
 import swervelib.imu.ADIS16470Swerve;
@@ -88,6 +89,8 @@ public class DeviceJson
       case "sparkflex_canandmag":
       case "sparkflex_canandcoder":
         return new SparkFlexEncoderSwerve(motor, 360);
+      case "talonfxs_analog":
+        return new TalonFXSEncoderAnalogSwerve(motor);
       case "canandcoder_can":
       case "canandmag_can":
         return new CanAndMagSwerve(id);
