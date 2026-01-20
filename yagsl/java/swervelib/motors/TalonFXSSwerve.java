@@ -404,7 +404,7 @@ public class TalonFXSSwerve extends SwerveMotor
   @Override
   public double getPosition()
   {
-    return motor.getPosition().getValue().magnitude();
+    return motor.getPosition().getValue().in(Degrees);
   }
 
   /**
