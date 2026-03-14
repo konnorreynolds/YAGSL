@@ -15,6 +15,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkMaxConfig.Presets;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -81,6 +82,11 @@ public class SparkMaxSwerve extends SwerveMotor
     factoryDefaults();
     clearStickyFaults();
 
+    if (isMotor(motorType, DCMotor.getMinion(1)))
+    {
+      cfg = (SparkMaxConfig) Presets.CTRE_Minion;
+    }
+
     encoder = motor.getEncoder();
     pid = motor.getClosedLoopController();
 
@@ -90,6 +96,24 @@ public class SparkMaxSwerve extends SwerveMotor
 
     // Spin off configurations in a different thread.
     // configureSparkMax(() -> motor.setCANTimeout(0)); // Commented out because it prevents feedback.
+  }
+
+  /**
+   * Compare {@link DCMotor}s to identify the given motor.
+   *
+   * @param a {@link DCMotor} a
+   * @param b {@link DCMotor} b
+   * @return True if same DC motor.
+   */
+  public boolean isMotor(DCMotor a, DCMotor b)
+  {
+    return a.stallTorqueNewtonMeters == b.stallTorqueNewtonMeters &&
+           a.stallCurrentAmps == b.stallCurrentAmps &&
+           a.freeCurrentAmps == b.freeCurrentAmps &&
+           a.freeSpeedRadPerSec == b.freeSpeedRadPerSec &&
+           a.KtNMPerAmp == b.KtNMPerAmp &&
+           a.KvRadPerSecPerVolt == b.KvRadPerSecPerVolt &&
+           a.nominalVoltageVolts == b.nominalVoltageVolts;
   }
 
 
