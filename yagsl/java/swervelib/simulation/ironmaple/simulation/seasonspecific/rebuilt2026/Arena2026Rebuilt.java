@@ -351,7 +351,7 @@ public class Arena2026Rebuilt extends SimulatedArena {
      * @param isBlue Which alliance to set the active value of
      * @param override The value to set with true being active and false being inactive. 
      */
-    protected void setActiveOverride(boolean isBlue, boolean override){
+    public void setActiveOverride(boolean isBlue, boolean override){
         if (isBlue){blueActiveOverride = override;}
         else {redActiveOverride=override;}
     }
